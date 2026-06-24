@@ -1,12 +1,13 @@
 
 import React, { useState } from 'react'
 
-function AddResource() {
-    const [title, setTitle] = useState("")
-    const [status, setStatus] = useState("")
+function AddResource({getItems}) {
+    const [title, setTitle] = useState("");
+    const [status, setStatus] = useState("");
+    const [error, setError] = useState("");
 
-  async function createResource(){
-    preventDefault()
+  async function createResource(event){
+    event.preventDefault()
     const BACKEND = import.meta.env.VITE_BACKEND
     const resource = {title, status}
     const options = {
@@ -16,7 +17,10 @@ function AddResource() {
     }
     const res = await fetch(BACKEND, "/api/resources", options)
     const data = await res.json()
-    //console.log("Created!", data)//
+    console.log("Created!", data)//
+    getItems();
+    setTitle("");
+    setStatus("");
   }
 
   function handleTitle(event){
@@ -29,7 +33,7 @@ function AddResource() {
     
   return (
     <div>
-        <form >
+        <form onSubmit={createResource}>
             <label htmlFor="title">
                 Title
                 <input type="text" name="title" id="title" value={title} onChange={handleTitle} />
@@ -38,7 +42,7 @@ function AddResource() {
                 Status
                 <input type="text" name="status" id="status" value={status} onChange={handleStatus} />
             </label>
-            <button type="submit" onSubmit={createResource}>Send</button>
+            <button type="submit">Send</button>
         </form>
     </div>
   )

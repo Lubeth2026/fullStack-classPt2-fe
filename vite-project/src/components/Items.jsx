@@ -1,23 +1,11 @@
 
 import React, { useEffect, useState } from "react";
 
-function items() {
-  const [items, setItems] = useState([]);
+function items({items, getItems}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  async function getItems() {
-    try {
-      const BACKEND = import.meta.env.VITE_BACKEND;
-      const res = await fetch(BACKEND + "/api/resources");
-      const data = await res.json();
-      setItems(data);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
+  //Removed items state from here
+  //getItems items function 
 
   useEffect(() => {
     getItems();
