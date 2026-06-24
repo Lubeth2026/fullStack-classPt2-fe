@@ -34,6 +34,7 @@ function items() {
     <div>
       {items.map((item) => (
         <div key={item.id}>
+          <p>{item.id}</p>
           <h2>{item.title}</h2>
           <p>{item.status}</p>
         </div>
